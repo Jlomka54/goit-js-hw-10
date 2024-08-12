@@ -48,13 +48,21 @@ function startTimer() {
   if (startBt.disabled) {
     return;
   } else {
+
     startBt.classList.remove('active-button')
     timerInterval = setInterval(() => {
       const currentTime = new Date();
       const deltaTime = userSelectedDate - currentTime;
+      dataTime.disabled = true;
+      dataTime.style.cursor = "not-allowed";
+    
 
       if (deltaTime <= 0) {
         clearInterval(timerInterval);
+        startBt.classList.add('active-button');
+        dataTime.disabled = false;
+      dataTime.style.cursor = "pointer";
+        
         return;
       }
         const time = convertMs(deltaTime);
