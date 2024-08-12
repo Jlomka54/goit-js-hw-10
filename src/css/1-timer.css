@@ -9,10 +9,13 @@ button {
   height: 40px;
   background-color: #cfcfcf;
   color: #989898;
+  cursor: not-allowed;
 }
-button:active {
-  color: #fff;
+
+.active-button {
   background-color: #4e75ff;
+  color: #fff;
+  cursor: pointer;
 }
 
 #datetime-picker {

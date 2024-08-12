@@ -4,15 +4,20 @@ import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
 
 
-
 const dataTime = document.querySelector("#datetime-picker");
 const startBt = document.querySelector("button[data-start]");
 
+const dataDays = document.querySelector('.value[data-days]')
+const dataHours = document.querySelector('.value[data-hours]')
+const dataMinuts = document.querySelector('.value[data-minutes]')
+const dataSeconds = document.querySelector('.value[data-seconds]')
+
+console.log(startBt.disabled);
 
 let userSelectedDate = 0;
+let timerInterval;
 
-console.log(startBt);
-console.log(dataTime);
+startBt.disabled = true;
 
 
 
@@ -23,19 +28,40 @@ const options = {
   minuteIncrement: 1,
   onClose(selectedDates) {
       console.log(selectedDates[0]);
-      if (selectedDates <= new Date()) {
-          window.alert("Please choose a date in the future");
-          startBt.disable = true;
-      } else {
-          userSelectedDate = selectedDate;
-        startButton.disabled = false;
+    if (selectedDates[0] <= new Date()) {
+        iziToast.warning({
+    title: 'Please choose a date in the future', });
+    } else {
+      startBt.classList.add('active-button');
+          userSelectedDate = selectedDates[0];
+      startBt.disabled = false;
       }
   },
 };
 
-
-
 flatpickr(dataTime, options);
+
+startBt.addEventListener('click', startTimer)
+
+
+function startTimer() {
+  if (startBt.disabled) {
+    return;
+  } else {
+    startBt.classList.remove('active-button')
+    timerInterval = setInterval(() => {
+      const currentTime = new Date();
+      const deltaTime = userSelectedDate - currentTime;
+
+      if (deltaTime <= 0) {
+        clearInterval(timerInterval);
+        return;
+      }
+        const time = convertMs(deltaTime);
+        updateClock(time);
+      }, 1000);
+  }
+}
 
 function convertMs(ms) {
   // Number of milliseconds per unit of time
@@ -45,15 +71,25 @@ function convertMs(ms) {
   const day = hour * 24;
 
   // Remaining days
-  const days = Math.floor(ms / day);
+  const days = addLeadingZero(Math.floor(ms / day));
   // Remaining hours
-  const hours = Math.floor((ms % day) / hour);
+  const hours = addLeadingZero(Math.floor((ms % day) / hour));
   // Remaining minutes
-  const minutes = Math.floor(((ms % day) % hour) / minute);
+  const minutes = addLeadingZero(Math.floor(((ms % day) % hour) / minute));
   // Remaining seconds
-  const seconds = Math.floor((((ms % day) % hour) % minute) / second);
+  const seconds = addLeadingZero(Math.floor((((ms % day) % hour) % minute) / second));
 
   return { days, hours, minutes, seconds };
 }
 
 
+function addLeadingZero(value) {
+  return String(value).padStart(2, "0")
+}
+
+function updateClock({ days, hours, minutes, seconds }) {
+  dataDays.textContent = `${days}`;
+  dataHours.textContent = `${hours}`;
+  dataMinuts.textContent = `${minutes}`;
+  dataSeconds.textContent = `${seconds}`;
+}

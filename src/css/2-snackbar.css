@@ -1,0 +1,84 @@
+body {
+  font-family: 'Montserrat', sans-serif;
+  box-sizing: border-box;
+}
+
+.form {
+  margin: 60px auto;
+  width: 360px;
+}
+
+.delay-input {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  color: #2e2f42;
+}
+
+.input-number {
+  max-width: 360px;
+  height: 40px;
+  border: 1px solid #808080;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  padding: 8px 16px;
+}
+.input-number:hover {
+  border-color: #4e75ff;
+}
+
+fieldset {
+  width: 360px;
+  height: 64px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 48px;
+  border-radius: 4px;
+  stroke-width: 1px;
+  stroke: #808080;
+  margin-bottom: 24px;
+  padding: 0;
+}
+fieldset:hover {
+  stroke: #000;
+}
+fieldset label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+fieldset input {
+  width: 20px;
+  height: 20px;
+}
+.fieldset input:hover,
+fieldset input:active {
+  border: 1px solid #000;
+}
+
+.button-submit {
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+  padding: 8px 16px;
+  width: 360px;
+  height: 40px;
+  background-color: #4e75ff;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  color: #fff;
+  transition: background-color 250ms linear;
+}
+
+.button-submit:hover {
+  background-color: #6c8cff;
+}
